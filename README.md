@@ -2,6 +2,9 @@
 
 Tiller is a tool that generates configuration files. It takes a set of templates, fills them in with values from a variety of sources (such as environment variables, Consul, YAML files, JSON from a webservice...), installs them in a specified location and then optionally spawns a child process.
 
+tiller (docker-tiller) as a container eliminates the Dependencies and Requirements with ruby.
+It gives quick hands on experience with tiller on any environment.
+
 ## Quickstart tutorial
 The following examples are intended to give you a very quick overview of how Tiller can be installed using Docker image and generate dynamic configuration files, using values from a few different [plugins](https://github.com/markround/tiller/blob/master/docs/plugins/index.md). It doesn't cover topics like executing commands and [running Tiller inside Docker](https://github.com/markround/tiller/blob/master/docs/general/docker.md), however this is covered in the rest of the documentation. The example simplistic use-case covered is an application that has a database configuration file, and we need a way to set the database hostname dynamically, depending on where the application is run.  
 
