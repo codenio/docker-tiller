@@ -1,16 +1,15 @@
 # docker-tiller
 
-Tiller is a tool that generates configuration files
+Tiller is a tool that generates configuration files. It takes a set of templates, fills them in with values from a variety of sources (such as environment variables, Consul, YAML files, JSON from a webservice...), installs them in a specified location and then optionally spawns a child process.
+
+## Quickstart tutorial
+The following examples are intended to give you a very quick overview of how Tiller can be installed using Docker image and generate dynamic configuration files, using values from a few different [plugins](https://github.com/markround/tiller/blob/master/docs/plugins/index.md). It doesn't cover topics like executing commands and [running Tiller inside Docker](https://github.com/markround/tiller/blob/master/docs/general/docker.md), however this is covered in the rest of the documentation. The example simplistic use-case covered is an application that has a database configuration file, and we need a way to set the database hostname dynamically, depending on where the application is run.  
 
 
-# Quickstart tutorial
-The following examples are intended to give you a very quick overview of how Tiller can be installed using Docker image and generate dynamic configuration files, using values from a few different [plugins](plugins/index.md). It doesn't cover topics like executing commands and [running Tiller inside Docker](general/docker.md), however this is covered in the rest of the documentation. The example simplistic use-case covered is an application that has a database configuration file, and we need a way to set the database hostname dynamically, depending on where the application is run.  
-
-
-# Requirements
+## Requirements
  * Docker
  
-# Setup
+## Setup
 
 Pull docker-tiller:
 
@@ -30,7 +29,7 @@ Create a simple template file and save it as `quickstart/templates/db.erb` - thi
 db_hostname: <%= env_db_hostname %>
 ```
 
-# Example 1 : Provide value from environment
+## Example 1 : Provide value from environment
 Create a file named `quickstart/common.yaml` with the following content:
 
 ```yaml
@@ -76,10 +75,10 @@ db_hostname: mydb.example.com
 
 ** Further work **
 
- * Read the documentation for the [Environment plugin](plugins/environment.md) and set some of the parameters it provides such as `prefix` and `lowercase` and see how this changes your template. 
+ * Read the documentation for the [Environment plugin](https://github.com/markround/tiller/blob/master/docs/plugins/environment.md) and set some of the parameters it provides such as `prefix` and `lowercase` and see how this changes your template. 
  * Try adding the `-d` and `-v` flags when you run Tiller (e.g. `tiller --base-dir=./quickstart -v`)to see how this provides extra information. 
 
-# Example 2 : Provide a default value
+## Example 2 : Provide a default value
 
 Modify your `common.yaml` so it now has the following content:
 
@@ -98,7 +97,7 @@ environments:
       target: db.ini
 ```
 
-This now enables the [Defaults](plugins/defaults.md) plugin and configures it to provide a default value if one is not set. Try unsetting the environment variable you set earlier and re-running Tiller :
+This now enables the [Defaults](https://github.com/markround/tiller/blob/master/docs/plugins/defaults.md) plugin and configures it to provide a default value if one is not set. Try unsetting the environment variable you set earlier and re-running Tiller :
 
 ```sh 
 $ docker run --rm -v $PWD:/opt coder95/tiller --base-dir=./quickstart 
@@ -117,9 +116,9 @@ db_hostname: localhost
 
 ** Further work **
 
- * Try swapping the order that the data sources are loaded in the `data_sources:` parameter and re-run the tiller command. What happens ? Why ? Hint: [the plugins documentation](plugins/#ordering).
+ * Try swapping the order that the data sources are loaded in the `data_sources:` parameter and re-run the tiller command. What happens ? Why ? Hint: [the plugins documentation](https://github.com/markround/tiller/blob/master/docs/plugins/#ordering).
  
-# Example 3 : Provide pre-defined environments for your config
+## Example 3 : Provide pre-defined environments for your config
 
 Let's suppose that you know in advance what the values for the `db_hostname` should be, when the environment is run in your "production" and "staging" environments, but you still want the ability to specify the value when you are developing locally or to provide a manual override in any environment. You can achieve this by specifying environments, and telling Tiller which one to use at run-time.
 
@@ -210,7 +209,4 @@ db_hostname: mydb
 
 Hopefully, this gave you a helpful overview of how Tiller works. You may now want to:
  
- * Read the [Set up with Docker](general/docker.md) to see how this can help you build containers with dynamic configuration
- * Continue with the [rest of the documentation](general/index.md)
- * See what [plugins](plugins/index.md) are available to help you generate your files
- * Or browse some of the [other resources](resources.md)
+ * Read the [tiller official git repo ](https://github.com/markround/tiller) to see more
