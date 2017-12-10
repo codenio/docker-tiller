@@ -1,0 +1,9 @@
+---
+data_sources: [ "environment","file"]
+template_sources: [ "file" ]
+environments:
+  development:
+    db.erb:
+      target: db.ini
+      config:
+        env_db_hostname: aananth

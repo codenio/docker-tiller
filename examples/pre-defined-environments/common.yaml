@@ -1,0 +1,18 @@
+---
+data_sources: [ "defaults" , "file", "environment" ]
+template_sources: [ "file" ]
+defaults:
+  global:
+    env_db_hostname: localhost
+  db.erb:
+    target: db.ini
+environments:
+  development:
+  production:
+    db.erb:
+      config:
+        env_db_hostname: db.prod.example.com
+  staging:
+    db.erb:
+      config:
+        env_db_hostname: db.staging.example.com

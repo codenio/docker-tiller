@@ -1,0 +1,10 @@
+---
+data_sources: [ "file" , "defaults", "environment" ]
+template_sources: [ "file" ]
+defaults:
+  global:
+    env_db_hostname: localhost
+environments:
+  development:
+    db.erb:
+      target: /home/db.ini
